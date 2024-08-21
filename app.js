@@ -1,90 +1,68 @@
-(function () {
-  'use strict';
+(function() {
+    'use strict';
 
-  
-  // Define the AngularJS module
-  angular.module('NarrowItDownApp', [])
+    angular.module('NarrowItDownApp', [])
+    .controller('NarrowItDownController', NarrowItDownController)
+    .service('MenuSearchService', MenuSearchService)
+    .directive('foundItems', FoundItemsDirective);
 
-  // Define the controller
-  .controller('NarrowItDownController', NarrowItDownController)
-
-  // Define the service
-  .service('MenuSearchService', MenuSearchService)
-
-  // Define the directive
-  .directive('foundItems', FoundItemsDirective);
-
-  // Inject dependencies
   NarrowItDownController.$inject = ['MenuSearchService'];
-  function NarrowItDownController(MenuSearchService) {
-    var narrowCtrl = this;
-    narrowCtrl.searchTerm = "";
-    narrowCtrl.found = [];
+function NarrowItDownController(MenuSearchService) {
+    var ctrl = this;
+    ctrl.searchTerm = "";
+    ctrl.found = [];
+    ctrl.message = false;
 
-    narrowCtrl.narrowItDown = function () {
-      if (narrowCtrl.searchTerm.trim() === "") {
-        narrowCtrl.found = [];
-        return;
-      }
+    ctrl.narrowItDown = function() {
+        if (ctrl.searchTerm.trim() === "") {
+            ctrl.message = true;
+            ctrl.found = [];
+            return;
+        }
 
-      MenuSearchService.getMatchedMenuItems(narrowCtrl.searchTerm)
-        .then(function (foundItems) {
-          narrowCtrl.found = foundItems;
-        })
-        .catch(function (error) {
-          console.log("Something went wrong:", error);
+        MenuSearchService.getMatchedMenuItems(ctrl.searchTerm)
+        .then(function(foundItems) {
+            ctrl.found = foundItems;
+            ctrl.message = ctrl.found.length === 0;
         });
     };
 
-    narrowCtrl.removeItem = function (index) {
-      narrowCtrl.found.splice(index, 1);
+    ctrl.removeItem = function(index) {
+        ctrl.found.splice(index, 1);
     };
-  }
-
-  MenuSearchService.$inject = ['$http'];
-  function MenuSearchService($http) {
+}
+MenuSearchService.$inject = ['$http'];
+function MenuSearchService($http) {
     var service = this;
 
-    service.getMatchedMenuItems = function (searchTerm) {
-      return $http({
-        method: "GET",
-        url: "https://coursera-jhu-default-rtdb.firebaseio.com/menu_items.json"
-      }).then(function (result) {
-        var foundItems = [];
-        var items = result.data;
+    service.getMatchedMenuItems = function(searchTerm) {
+        return $http({
+            method: "GET",
+            url: "https://coursera-jhu-default-rtdb.firebaseio.com/menu_items.json"
+        }).then(function(response) {
+            var allItems = response.data;
+            var foundItems = [];
 
-        for (var item in items) {
-          if (items[item].description.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1) {
-            foundItems.push(items[item]);
-          }
-        }
+            for (var item in allItems) {
+                if (allItems[item].description.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1) {
+                    foundItems.push(allItems[item]);
+                }
+            }
 
-        return foundItems;
-      });
+            return foundItems;
+        });
     };
-  }
-
-  function FoundItemsDirective() {
+}
+function FoundItemsDirective() {
     var ddo = {
-      restrict: 'E',
-      templateUrl: 'foundItems.html',
-      scope: {
-        items: '<',
-        onRemove: '&'
-      },
-      controller: FoundItemsDirectiveController,
-      controllerAs: 'list',
-      bindToController: true
+        templateUrl: 'foundItems.html',
+        scope: {
+            items: '<',
+            onRemove: '&'
+        }
     };
 
     return ddo;
-  }
+}
 
-  function FoundItemsDirectiveController() {
-    var list = this;
-
-    list.isEmpty = function () {
-      return list.items && list.items.length === 0;
-    };
-  }
 })();
