@@ -1,23 +1,18 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="NarrowItDownApp">
+<html ng-app="NarrowItDownApp">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Narrow It Down!</title>
-    <link rel="stylesheet" href="styles.css">
-
+  <title>Narrow It Down</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+  <script src="app.js"></script>
 </head>
 <body>
-    <div ng-controller="NarrowItDownController as ctrl">
-        <input type="text" ng-model="ctrl.searchTerm" placeholder="Search term">
-        <button ng-click="ctrl.narrowItDown()">Narrow It Down For Me!</button>
-
-        <found-items items="ctrl.found" on-remove="ctrl.removeItem(index)"></found-items>
-
-        <p ng-if="ctrl.found.length === 0 && ctrl.message">Nothing found</p>
-    </div>
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
-
-    <script src="js/app.js"></script>
+  <div ng-controller="NarrowItDownController as narrowCtrl">
+    <h1>Narrow Down Your Menu Choices</h1>
+    
+    <input type="text" ng-model="narrowCtrl.searchTerm" placeholder="Search term">
+    <button ng-click="narrowCtrl.getMatchedItems()">Narrow It Down For Me!</button>
+    
+    <found-items items="narrowCtrl.found" on-remove="narrowCtrl.removeItem(index)"></found-items>
+  </div>
 </body>
 </html>
