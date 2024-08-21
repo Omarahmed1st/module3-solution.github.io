@@ -1,6 +1,7 @@
 (function () {
   'use strict';
 
+  
   // Define the AngularJS module
   angular.module('NarrowItDownApp', [])
 
