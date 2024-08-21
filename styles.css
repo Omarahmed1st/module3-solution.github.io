@@ -1,93 +1,56 @@
-/* General body styles */
 body {
-  font-family: Arial, sans-serif;
-  margin: 20px;
-  background-color: #f8f9fa; /* Light gray background */
-  color: #333; /* Darker text color */
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 20px;
 }
 
-/* Header styles */
-h1 {
-  text-align: center;
-  color: #007bff; /* Bootstrap primary color */
-  margin-bottom: 20px;
-}
-
-/* Input field styles */
 input[type="text"] {
-  margin-right: 10px;
-  padding: 10px;
-  font-size: 16px;
-  border: 1px solid #ced4da; /* Border color */
-  border-radius: 4px; /* Rounded corners */
-  transition: border-color 0.3s; /* Smooth border color transition */
+    padding: 10px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 300px;
 }
 
-/* Input focus effect */
-input[type="text"]:focus {
-  border-color: #007bff; /* Change border color on focus */
-  outline: none; /* Remove default outline */
-}
-
-/* Button styles */
 button {
-  padding: 10px 15px;
-  font-size: 16px;
-  background-color: #007bff; /* Bootstrap primary color */
-  color: white; /* White text */
-  border: none; /* No border */
-  border-radius: 4px; /* Rounded corners */
-  cursor: pointer; /* Pointer cursor */
-  transition: background-color 0.3s; /* Smooth background color transition */
+    padding: 10px 20px;
+    border: none;
+    background-color: #28a745;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
 }
 
-/* Button hover effect */
 button:hover {
-  background-color: #0056b3; /* Darker blue on hover */
+    background-color: #218838;
 }
 
-/* List styles */
 ul {
-  list-style-type: none; /* Remove bullet points */
-  padding: 0; /* Remove default padding */
-  max-width: 600px; /* Limit max width of the list */
-  margin: 0 auto; /* Center the list */
+    list-style-type: none;
+    padding: 0;
 }
 
-/* List item styles */
 li {
-  margin: 15px 0; /* Space between items */
-  padding: 15px; /* Space inside the item */
-  background-color: #ffffff; /* White background for list items */
-  border: 1px solid #ced4da; /* Light gray border */
-  border-radius: 4px; /* Rounded corners */
-  display: flex; /* Use flexbox for alignment */
-  justify-content: space-between; /* Space between item text and button */
-  align-items: center; /* Center items vertically */
-  transition: box-shadow 0.3s; /* Smooth shadow transition */
+    padding: 10px;
+    background-color: white;
+    border: 1px solid #ccc;
+    margin-bottom: 5px;
+    border-radius: 4px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-/* List item hover effect */
-li:hover {
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow on hover */
+li button {
+    background-color: #dc3545;
 }
 
-/* Styles for 'Nothing found' message */
-div[ng-if="list.isEmpty()"] {
-  text-align: center;
-  font-size: 18px;
-  color: #dc3545; /* Bootstrap danger color for emphasis */
+li button:hover {
+    background-color: #c82333;
 }
 
-/* Responsive design */
-@media (max-width: 600px) {
-  input[type="text"] {
-    width: calc(100% - 22px); /* Full width on small screens */
-    margin-right: 0; /* Remove right margin */
-  }
-  
-  button {
-    width: 100%; /* Full width button */
-    margin-top: 10px; /* Space above button */
-  }
+p {
+    font-weight: bold;
+    color: red;
 }
